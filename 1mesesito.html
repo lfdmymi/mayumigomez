@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz 1 Mes Amor Mío</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --bg: #fff0f3;
+            --text: #590d22;
+            --white: #ffffff;
+            --card-gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Animación de Corazones Flotantes --- */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .heart-float {
+            position: absolute;
+            bottom: -100px;
+            font-size: 2rem;
+            color: rgba(255, 77, 109, 0.4);
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Encabezado --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 240, 243, 0.9));
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #800f2f;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* --- Galería --- */
+        .gallery {
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(0);
+            z-index: 10;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 300px; /* Altura fija para uniformidad */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* --- Carta Larga --- */
+        .love-letter {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+            position: relative;
+        }
+
+        .love-letter::before {
+            content: "❤";
+            font-size: 50px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary);
+            background: var(--bg);
+            border-radius: 50%;
+            padding: 0 10px;
+        }
+
+        .love-letter p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* --- Sección JOPY (Gift Card) --- */
+        .gift-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--bg), #fff);
+        }
+
+        .jopy-intro {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .gift-card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 450px;
+            height: 280px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .gift-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .gift-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Frente de la tarjeta */
+        .card-front {
+            background: linear-gradient(135deg, #222, #444);
+            color: var(--card-gold);
+            border: 2px solid var(--card-gold);
+        }
+
+        .card-front h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+        }
+        
+        .card-front p {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .click-hint {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+            animation: bounce 2s infinite;
+        }
+
+        /* Reverso de la tarjeta */
+        .card-back {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .amount {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+        }
+
+        .store-type {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .jopy-msg {
+            font-size: 0.9rem;
+            font-style: italic;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* --- Animaciones Keyframes --- */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .love-letter { margin: 20px; padding: 20px; }
+            .gift-card-container { height: 240px; }
+            .amount { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-bg" id="heartsContainer"></div>
+
+    <header>
+        <h1>1 Mes Siendo Mi Novia Hermosa</h1>
+        <div class="subtitle">
+            <p>TE AMO MUCHOTE ❤</p>
+            <p>Parece que fue ayer, pero ya llevamos 30 días de pura felicidad.</p>
+        </div>
+    </header>
+
+    <section class="gallery">
+        <div class="photo-card">
+            <img src="/img1.jpg" alt="Nuestro momento 1" onerror="this.src='3.jpeg'">
+            <p style="text-align: center; padding-top: 5px;">El comienzo ✨</p>
+        </div>
+        <div class="photo-card">
+            <img src="/img2.jpg" alt="Nuestro momento 2" onerror="this.src='1.jpeg'">
+            <p style="text-align: center; padding-top: 5px;">Caras raras😄</p>
+        </div>
+        <div class="photo-card">
+            <img src="/img3.jpg" alt="Nuestro momento 3" onerror="this.src='2.jpeg'">
+            <p style="text-align: center; padding-top: 5px;">Te amo 😍</p>
+        </div>
+    </section>
+
+    <section class="love-letter">
+        <h2 style="text-align: center; font-family: 'Dancing Script', cursive; color: var(--primary); margin-bottom: 20px; font-size: 2.5rem;">Feliz Primer Mes</h2>
+        
+        <p>Mi amor,</p>
+
+        <p>Hoy celebramos nuestro primer mes oficial juntos, y no puedo evitar sonreír mientras escribo esto. Han pasado solo 30 días desde ese dia en la playa, pero hoy es. 1 MES SIENDO MI NOVIA HERMOSA TE AMO MUCHOTE, y quería dejártelo escrito aquí para que nunca se te olvide.</p>
+
+        <p>Gracias por cada risa, por cada mensaje de buenos días, por aguantarme y por ser esa persona que alegra mis días. Me encanta cómo eres, me encanta tu sonrisa y me encanta que seas mi compañera. Este mes ha sido solo el inicio de toda la película hermosa que vamos a vivir juntos.</p>
+
+        <p>Sé que a veces puedo ser un desastre, pero prometo seguir esforzándome para hacerte feliz cada día. Eres única, hermosa por fuera y por dentro, y tengo mucha suerte de poder llamarte MI NOVIA.</p>
+
+        <p>Y bueno... como sé que te gusta verte siempre divina y hermosa (aunque ya sos, no tanto como yo pero casi), y como hoy es un día especial, no podía dejar pasar la ocasión sin un detallito...</p>
+    </section>
+
+    <section class="gift-section">
+        <div class="jopy-intro">
+            🎁 Tengo una sorpresa para vos... <br>
+            <span style="font-size: 1rem; font-weight: normal;">(Toca la tarjeta para verla)</span>
+        </div>
+
+        <div class="gift-card-container" onclick="this.querySelector('.gift-card').classList.toggle('flipped')">
+            <div class="gift-card">
+                <div class="card-front">
+                    <h2>Vale por...</h2>
+                    <p>Un detallito especial</p>
+                    <div style="font-size: 3rem; margin: 10px;">💄💅</div>
+                    <div class="click-hint">Click para girar ↻</div>
+                </div>
+
+                <div class="card-back">
+                    <div class="store-type">Gift Card - Maquillaje</div>
+                    <div class="amount">150.000 Gs</div>
+                    <div class="jopy-msg">
+                        Ya que sos muy <strong>Jopy</strong> pensé en regalarte esta gift card que tenés que gastar siosi.
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.8rem;">Válido para: Verte aún más preciosa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Por muchos meses más juntos 🥂</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Te amo.</p>
+    </footer>
+
+    <script>
+        // Script para generar corazones flotantes
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartCount = 15; // Número de corazones simultáneos
+
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-float');
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 5 + 5) + 's'; // Entre 5 y 10s
+                    heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                    container.appendChild(heart);
+
+                    // Eliminar corazón después de la animación para no saturar memoria
+                    setTimeout(() => {
+                        heart.remove();
+                        // Crear uno nuevo para mantener el flujo
+                        createSingleHeart();
+                    }, 10000); 
+                }, i * 500);
+            }
+        }
+
+        function createSingleHeart() {
+            const container = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+
+        // Iniciar corazones al cargar
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
